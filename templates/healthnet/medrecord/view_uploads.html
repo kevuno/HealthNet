@@ -1,0 +1,53 @@
+<!--
+    file: upload.html
+
+    Displays a form where doctors can upload files.
+-->
+
+{% extends 'healthnet/employee/employee_dashboard.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+            <h1>{{ request.user.first_name }}'s Uploads</h1>
+
+            <!-- If the appointment_list exists -->
+            {% if upload_list %}
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Uploads</h3>
+                    </div>
+
+                    <!-- List of appointments -->
+                    <div class="panel-body">
+                        {% for upload in upload_list %}
+
+                            {% if upload.file.url != None %}
+                                <a href="{{ upload.file.url }}" class="list-group-item">
+                                <span class="text-info">
+                                    {{ upload.title }}
+                                </span>
+                                    on {{ upload.date }}
+                                </a>
+                            {% else %}
+                                <a class="list-group-item">
+                                <span class="text-info">
+                                    {{ upload.title }}
+                                </span>
+                                    on {{ upload.date }}
+                                </a>
+                            {% endif %}
+
+                        {% endfor %}
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+                </div>
+
+                <!-- If there are not appointments render message-->
+            {% else %}
+                <p>No uploads found.</p>
+            {% endif %}
+    </div>
+{% endblock %}

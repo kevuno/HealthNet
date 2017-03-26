@@ -1,0 +1,23 @@
+<!--
+    file: upload.html
+
+    Displays a form where doctors can upload files.
+-->
+
+{% extends 'healthnet/employee/employee_dashboard.html' %}
+{% block content %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+{#        <!-- Only render this error message if error message is sent into view -->#}
+{#        {% if errormsg|length > 0 %}#}
+{#        <div class="alert alert-dismissible alert-danger">#}
+{#            <button type="button" class="close" data-dismiss="alert">&times;</button>#}
+{#            <strong>{{ errormsg }}</strong>#}
+{#        </div>#}
+{##}
+{#        {% endif %}#}
+
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+{% endblock %}

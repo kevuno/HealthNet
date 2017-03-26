@@ -1,0 +1,26 @@
+<!--
+    file: update_appointment.html
+
+    Allows appointment details to be edited and saved.
+    Displays the current values for each of the fields
+
+-->
+
+{% extends 'healthnet/base.html' %}
+{% block content %}
+
+<body>
+    <div class="col-lg-6">
+
+        <!-- Render form that is populated with current details -->
+        <form method="post" class="form-horizontal">
+            {% csrf_token %}
+            {{appointment_update_form.as_p}}
+            <div class="row">
+                <button id="submit_update_form" type="submit" class="btn btn-success btn-lg">Save</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+{% endblock %}

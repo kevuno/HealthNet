@@ -1,0 +1,47 @@
+<!--
+    file: appointments_view.html
+
+    Displays a list of active appointments
+
+-->
+
+
+{% extends 'healthnet/base.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+            <h1>{{ request.user.first_name }}'s Appointments</h1>
+
+            <!-- If the appointment_list exists -->
+            {% if appointment_list %}
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Next Appointments</h3>
+                    </div>
+
+                    <!-- List of appointments -->
+                    <div class="panel-body">
+                        {% for appointment in appointment_list %}
+                            <a href="/appointments/{{ appointment.id }}" class="list-group-item">
+                                <span class="text-info">
+                                    {{ appointment.description }}
+                                </span>
+
+                                on {{ appointment.date }}
+                                <span class="badge"> {{ appointment.time }}</span>
+                            </a>
+
+                        {% endfor %}
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+                </div>
+
+                <!-- If there are not appointments render message-->
+            {% else %}
+                <p>No appointments available.</p>
+            {% endif %}
+    </div>
+{% endblock %}

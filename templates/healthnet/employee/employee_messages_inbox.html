@@ -1,0 +1,38 @@
+{% extends 'healthnet/employee/employee_dashboard.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+            <h1>{{ request.user.first_name }}'s Messages</h1>
+
+            <!-- If the user has messages, render them-->
+            {% if message_list %}
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Received Messages</h3>
+                    </div>
+
+                    <!-- The list of messages -->
+                    <div class="panel-body">
+                        {% for message in message_list %}
+                            <a href="/employee/messages/{{ message.id }}" class="list-group-item">
+                                <span class="text-info">
+                                    {{ message.subject }}
+                                </span>
+
+                                on {{ message.date }}
+                                <span class="badge"> {{ message.time }}</span>
+                            </a>
+
+                        {% endfor %}
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+                                <!-- If there are no messages to read -->
+            {% else %}
+                <p>No messages received.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

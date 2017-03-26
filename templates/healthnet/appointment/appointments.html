@@ -1,0 +1,24 @@
+<!--
+    file: appointments.html
+
+    A list of of options that are related to appointments
+
+-->
+
+{% extends 'healthnet/base.html' %}
+{% block content %}
+
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">Appointments</h3>
+    </div>
+    <div class="panel-body">
+        Click <a href="/appointments/view">Here</a> to view your appointments
+            <br/>
+        Click <a href="/appointments/create">Here</a> to create a new appointment
+            <br/>
+        Click <a href="/appointments/calendar">Here</a> to view the calendar
+    </div>
+</div>
+
+{% endblock %}

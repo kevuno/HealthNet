@@ -1,0 +1,41 @@
+{% extends 'healthnet/employee/employee_dashboard.html' %}
+{% block content %}
+    {% load staticfiles %}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Patients List</title>
+    </head>
+    <body>
+    {% if patient_list %}
+        <ul style="list-style: none">
+            {% for patient in patient_list %}
+
+                <a href="/employee/{{ patient.id }}/">
+                <div class="panel panel-default">
+                    <div class="panel-heading">{{ patient.user.first_name }} {{ patient.user.second_name }}</div>
+                    <div class="panel-body">
+                        {{ patient.gender }} - {{ patient.height }}
+                    </div>
+                </div>
+                </a>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No patients are available.</p>
+    {% endif %}
+
+
+    <a href="transfer_patient"><button class="btn btn-info"> Transfer new Patient </button></a>
+
+    <a href="admit_patient"><button class="btn btn-info"> Admit new Patient </button></a>
+
+    </body>
+    </html>
+{% endblock %}
+
+
+
+

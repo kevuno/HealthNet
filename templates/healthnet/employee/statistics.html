@@ -1,0 +1,311 @@
+{% extends 'healthnet/employee/employee_dashboard.html' %}
+{% block content %}
+{% load staticfiles %}
+{% load app_filters %}
+    <!-- Highcharts is free for non-commercial use for students-->
+    <!-- https://shop.highsoft.com/faq/non-commercial-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+
+    <div id="patient_gender" style="min-width: 400px; height: 300px; max-width: 600px; margin: 0 auto"></div>
+    <div id="hospitals" style="min-width: 600px; height: 300px; max-width: 600px; margin: 0 auto"></div>
+    <div id="patient_assignments" style="min-width: 600px; height: 300px; max-width: 600px; margin: 0 auto"></div>
+    <div id="log_activity"></div>
+    <div id="site_activity"></div>
+
+
+    <style>
+        #patient_gender, #hospitals, #patient_assignments{
+            float: left;
+        }
+        #log_activity, #site_activity{
+            float: left;
+            width: 100%;
+            height: 550px;
+            margin: 0
+        }
+
+    </style>
+
+    <meta charset="UTF-8">
+    <title>Statistics</title>
+
+    <script>
+    $(function () {
+        Highcharts.chart('patient_gender', {
+            chart: {
+                backgroundColor: null,
+                type: 'pie'
+            },
+            title: {
+                text: 'Patients'
+            },
+            exporting:{
+                enabled: false
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+            series: [{
+                name: 'Registered',
+                colorByPoint: true,
+                data: [{
+                    color: '#64B5F6',
+                    name: 'Male',
+                    y: {{ total_male_patients }}
+                }, {
+                    color: '#EA80FC',
+                    name: 'Female',
+                    y: {{ total_female_patients }}
+                }]
+            }]
+            });
+
+
+
+
+
+        Highcharts.chart('hospitals', {
+            chart: {
+                backgroundColor: null,
+                type: 'pie'
+            },
+            title: {
+                text: 'Hospital Occupancy'
+            },
+            exporting:{
+                enabled: false
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+
+
+            series: [{
+                name: 'Patients Accommodated',
+                colorByPoint: true,
+                colors: ['#C5E1A5', '#9CCC65', '#7CB342', '#558B2F'],
+                data: [
+
+
+                    {% for i in hospital_loop_range %}
+                        {
+                        name: "{{ hospital_names|index:forloop.counter0 }}",
+                        y: {{ num_patients_in_each_hospital|index:forloop.counter0}} ,
+                        }{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+
+                    ]
+            }]
+            });
+
+
+        Highcharts.chart('patient_assignments', {
+            chart: {
+                backgroundColor: null,
+                type: 'pie'
+            },
+            title: {
+                text: 'Doctors'
+            },
+            exporting:{
+                enabled: false
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: true,
+                        format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                    }
+                }
+            },
+
+
+            series: [{
+                name: 'Assigned Patients',
+                colorByPoint: true,
+                colors: ['#90CAF9', '#42A5F5', '#1E88E5', '#1565C0'],
+                data: [
+
+
+                    {% for i in doctor_loop_range %}
+                        {
+                        name: "{{ doctor_names|index:forloop.counter0 }}",
+                        y: {{ num_patients_for_each_doctor|index:forloop.counter0}} ,
+                        }{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+
+                    ]
+            }]
+            });
+
+
+
+        Highcharts.chart('log_activity', {
+            chart: {
+                backgroundColor: null,
+                type: 'bar'
+            },
+            title: {
+                text: 'Log Activity'
+            },
+            xAxis: {
+                categories: ['Logged In', 'Logged Out',
+                             'Created Account', 'Updated Patient',
+                             'Created Appointment', 'Updated Appointment', 'Deleted Appointment',
+                             'Sent Message','Deleted Message',
+                             'Transferred Patient', 'Patient Med Info Updated',
+                             'Exported Information',
+                             'Created Test', 'Created Prescription'],
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                min: 0,
+                labels: {
+                    overflow: 'justify'
+                }
+            },
+            exporting:{
+                enabled: false
+            },
+            plotOptions: {
+                bar: {
+                    color: '#1abb9c',
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Occurrences in Log',
+                data: [ {{ total_logins }},
+                        {{ total_logouts }},
+                        {{ total_accounts_created }},
+                        {{ total_accounts_updated }},
+                        {{ total_appointments_created }},
+                        {{ total_appointments_updated }},
+                        {{ total_appointments_deleted }},
+                        {{ total_messages_sent }},
+                        {{ total_messages_deleted }},
+                        {{ total_transfer_patients }},
+                        {{ total_medical_updates }},
+                        {{ total_export_informations }},
+                        {{ total_tests_created }},
+                        {{ total_prescriptions_created }}]
+            }]
+        });
+
+
+
+         Highcharts.chart('site_activity', {
+            chart: {
+                backgroundColor: null,
+                zoomType: 'x'
+            },
+            title: {
+                text: 'Site Activity'
+            },
+            xAxis: {
+                type: 'datetime'
+            },
+            yAxis: {
+                title: {
+                    text: 'Site Activity'
+                }
+            },
+            exporting:{
+                enabled: false
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: {
+                            x1: 0,
+                            y1: 0,
+                            x2: 0,
+                            y2: 1
+                        },
+                        stops: [
+                            [0, '#1abb9c'],
+                            [1, Highcharts.Color('#1abb9c').setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    marker: {
+                        radius: 2
+                    },
+                    lineWidth: 1,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+
+            series: [{
+                type: 'area',
+                name: 'Log Entries Added',
+                color: '#1abb9c',
+                data: [
+
+
+                    {% for i in log_loop_range %}
+
+                        {% if list_of_days|checkNext:forloop.counter0 == False %}
+                            [Date.UTC({{ list_of_years|index:forloop.counter0 }}, {{ list_of_months|index:forloop.counter0 }}, {{ list_of_days|index:forloop.counter0 }}
+                            ), {{ list_of_days|getCount:forloop.counter0 }}]{% if not forloop.last %},{% endif %}
+                        {% endif %}
+
+
+
+                    {% endfor %}
+
+
+                ]
+            }]
+        });
+
+    });
+
+    </script>
+
+
+
+</head>
+
+<body>
+</body>
+</html>
+{% endblock %}

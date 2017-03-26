@@ -1,0 +1,21 @@
+{% extends 'healthnet/base.html' %}
+{% block content %}
+
+    <h1> Update Patient information</h1>
+
+	<form method="post">
+        <input type="hidden" value="registration">
+
+	{% csrf_token %}
+    <div id="patient_form_update">
+        {{ patient_update_form.as_p}}
+    </div>
+    <div id="medical_form_register">
+        {{ medical_form.as_p }}
+    </div>
+
+
+
+	<button type="submit">Save</button>
+
+{% endblock %}

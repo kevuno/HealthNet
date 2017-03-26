@@ -1,0 +1,24 @@
+<!--
+    file: doctor_home.html
+
+    Displays the doctor homepage.
+    This page will contain a list of today's messages and today's appointments.
+
+-->
+{% extends 'healthnet/employee/employee_dashboard.html' %}
+{% block content %}
+
+    <div style="color:#1ABB9C">
+        <h1>
+            Welcome back {{ request.user.first_name }}!
+        </h1>
+    </div>
+
+    <div class="col-lg-12">
+        This is your dashboard!
+        <br>
+        Use the left menu to navigate.
+    </div>
+
+
+{% endblock %}

@@ -1,0 +1,59 @@
+<!--
+    file: upload.html
+
+    Displays a form where doctors can upload files.
+-->
+
+{% extends 'healthnet/employee/employee_dashboard.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+            <h1>{{ request.user.first_name }}'s Tests</h1>
+
+            <!-- If the Test_list exists -->
+            {% if test_list %}
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Tests</h3>
+                    </div>
+
+                    <!-- List of Tests -->
+                    <!-- TODO The doctor needs to be able to release tests that are not released-->
+                    <div class="panel-body">
+                        {% for test in test_list %}
+                            <a href="/medrecord/view/tests/{{ test.id }}" class="list-group-item">
+                                <span class="text-info">
+                                    {{ test.title }} --
+                                    {{ test.patient_ID }}
+                                </span>
+
+                                on {{ test.date }}
+
+
+                                {% if test.released %}
+                                    <span class="label label-success" style="float: right" >
+                                    Released
+                                    </span>
+                                {% else %}
+                                    <span class="label label-danger" style="float: right" >
+                                    Not Released
+                                    </span>
+                                {% endif %}
+
+
+                            </a>
+
+                        {% endfor %}
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+                </div>
+
+                <!-- If there are not tests render message-->
+            {% else %}
+                <p>No tests found.</p>
+            {% endif %}
+    </div>
+{% endblock %}

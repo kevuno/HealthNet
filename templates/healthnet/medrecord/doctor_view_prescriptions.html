@@ -1,0 +1,41 @@
+{% extends 'healthnet/employee/employee_dashboard.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+            <h1>{{ request.user.first_name }}'s Patients' Prescriptions</h1>
+
+            <!-- If the user has messages, render them-->
+            {% if prescription_list %}
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Active Prescriptions</h3>
+                    </div>
+
+                    <!-- The list of messages -->
+                    <div class="panel-body">
+                        {% for prescription in prescription_list %}
+
+
+{#                            TODO Make hyperlink to specific prescription on employee page#}
+                            <a href="/medrecord/view/prescriptions/{{ prescription.id }}" class="list-group-item">
+                                <span class="text-info">
+                                    {{ prescription.patient }} -- {{ prescription.medication }}
+                                </span>
+
+                                <span class="badge"> {{ prescription.quantity }}</span>
+                            </a>
+
+                        {% endfor %}
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+                </div>
+
+                <!-- If there are no messages to read -->
+            {% else %}
+                <p>No prescriptions assigned.</p>
+            {% endif %}
+    </div>
+{% endblock %}

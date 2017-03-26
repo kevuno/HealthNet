@@ -1,0 +1,17 @@
+{% extends 'healthnet/base.html' %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+
+        <!-- Only render this error message if error message is sent into view -->
+        {% if errormsg|length > 0 %}
+        <div class="alert alert-dismissible alert-danger">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>{{ errormsg }}</strong>
+        </div>
+
+        {% endif %}
+
+        {{ form.as_p }}
+        <button type="submit">Save</button>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'healthnet/employee/employee_dashboard.html' %}
+{% block content %}
+    {% load staticfiles %}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Admit Patients</title>
+    </head>
+    <body>
+    <h3>List Of Patients Not In Hospitals</h3>
+    {% if patient_list %}
+        <ul style="list-style: none">
+            {% for patient in patient_list %}
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="panel panel-default">
+                        <div class="panel-heading">{{ patient.user.first_name }} {{ patient.user.last_name }}</div>
+                        <div class="panel-body">
+                            <input type="hidden" name="patient" value="{{patient.id}}">
+                            <input type="submit" class="btn btn-warning" value="Transfer">
+                        </div>
+                    </div>
+                </form>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No patients are available.</p>
+    {% endif %}
+
+    </body>
+    </html>
+{% endblock %}

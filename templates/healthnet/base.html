@@ -1,0 +1,129 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--CSS-->
+    <link rel="stylesheet" href="{% static "assets/css/bootstrap_green.css" %}">
+    <link rel="stylesheet" href="{% static "assets/css/bootstrap_green.css" %}">
+
+    <!--JS-->
+    <script type="text/javascript" src="{% static "assets/js/jquery.js" %}"></script>
+    <script type="text/javascript" src="{% static "assets/js/bootstrap.js" %}"></script>
+    <script type="text/javascript" src="{% static "assets/js/scripts.js" %}"></script>
+
+    <title>Healthnet</title>
+    <style type="text/css">
+        .navbar-brand, .navbar-nav li a {
+            line-height: 40px;
+            height: 100%;
+
+        }
+
+        .navbar {
+            background-image: none;
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<nav id="navbar" class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" style="padding:15px;" href="/"><img src="https://i.imgur.com/KqI7JaY.png"
+                                                                        style="max-width:100%; max-height:100%;"></a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+                {% if request.user.is_authenticated %}
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Appointments <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/appointments"><i class="fa fa-btn fa-sign-out"></i>Appointments Home</a></li>
+                            <li><a href="/appointments/view"><i class="fa fa-btn fa-sign-out"></i>View Appointments</a></li>
+                            <li><a href="/appointments/create"><i class="fa fa-btn fa-sign-out"></i>Create New Appointment</a></li>
+                            <li><a href="/appointments/calendar"><i class="fa fa-btn fa-sign-out"></i>View Calendar</a></li>
+                        </ul>
+
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Messages <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/messages"><i class="fa fa-btn fa-sign-out"></i>Messages Home</a></li>
+                            <li><a href="/messages/inbox"><i class="fa fa-btn fa-sign-out"></i>View Messages</a></li>
+                            <li><a href="/messages/compose"><i class="fa fa-btn fa-sign-out"></i>Compose Message</a></li>
+                        </ul>
+
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Tests <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/medrecord/tests"><i class="fa fa-btn fa-sign-out"></i>View Tests</a></li>
+                        </ul>
+
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            Prescriptions <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/medrecord/prescriptions"><i class="fa fa-btn fa-sign-out"></i>View Prescriptions</a></li>
+                        </ul>
+
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            {{ request.user.first_name }} <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="/userprofile"><i class="fa fa-btn fa-sign-out"></i>Profile</a></li>
+                            <li><a href="/userprofile/logout"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li><a onClick="functionOne()" href="/userprofile/register">Register</a></li>
+                    <li><a href="/userprofile/login">Login</a></li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+</body>
+
+
+</html>
+

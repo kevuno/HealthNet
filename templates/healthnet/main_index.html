@@ -1,0 +1,13 @@
+{% extends 'healthnet/base.html' %}
+{% block content %}
+    <div class="container">
+            <div class="jumbotron">
+              <h1>Healthnet</h1>
+              <p>This is the best hospital administration system. Appointments and personal health info
+                  for everyone. Made by Ed, Jake, Kevin, Mason and Nik.</p>
+              {% if not request.user.is_authenticated %}
+                <p><a href="userprofile/register" class="btn btn-info btn-lg">Register now!</a></p>
+              {% endif %}
+            </div>
+    </div>
+{% endblock %}

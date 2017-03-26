@@ -1,0 +1,36 @@
+{% extends "healthnet/base.html" %}
+
+{% block content %}
+
+
+            <form role="form" class="form-horizontal" method="post" >
+                <div class="row">
+		            <div class="col-lg-4 col-lg-offset-4">
+
+                        <h1>Login</h1><br>
+                        {{ form.non_field_errors }}
+                        {% csrf_token %}
+                        <div class="form-group">
+
+                                <div class="input-group">
+                                    <span class="input-group-addon" style="background-color:#2c3e50; color:white">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                    </span>
+                                    <input type="text" class="form-control" id="{{ form.username.id_for_label }}" maxlength="30" name="{{ form.username.html_name }}"/>
+                                    {{ form.username.errors }}
+                                </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon" style="background-color:#2c3e50; color:white">
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                    </span>
+                                    <input type="password" class="form-control" id="{{ form.password.id_for_label }}" maxlength="30" name="{{ form.password.html_name }}" />
+                                    {{ form.password.errors }}
+                                </div>
+                        </div>
+                            <input type="submit" class="btn btn-primary" value="Login">
+
+                    </div>
+                </div>
+            </form>
+
+{% endblock %}

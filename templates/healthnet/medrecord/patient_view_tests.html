@@ -1,0 +1,38 @@
+{% extends 'healthnet/base.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+            <h1>{{ request.user.first_name }}'s Tests</h1>
+
+            <!-- If the user has test, render them-->
+            {% if test_list %}
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Released Tests</h3>
+                    </div>
+
+                    <!-- The list of tests -->
+                    <div class="panel-body">
+                        {% for test in test_list %}
+                            <a href="tests/{{ test.id }}" class="list-group-item">
+                                <span class="text-info">
+                                    {{ test.description }}
+                                </span>
+
+                                <span class="badge"> {{ test.released }}</span>
+                            </a>
+
+                        {% endfor %}
+                        <ul>
+
+                        </ul>
+                    </div>
+                </div>
+                </div>
+
+                <!-- If there are no messages to read -->
+            {% else %}
+                <p>No Tests Released</p>
+            {% endif %}
+    </div>
+{% endblock %}

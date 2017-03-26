@@ -1,0 +1,92 @@
+{% extends 'healthnet/base.html' %}
+{% block content %}
+    <div class="col-lg-6 col-md-offset-3" xmlns="http://www.w3.org/1999/html">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="modal-title">{{ profileUser.user.first_name}} {{ profileUser.user.last_name}}</h4>
+        </div>
+        <div class="panel-body">
+            <p>
+                <table align="left" width="100%">
+                    <tr>
+                        <th>Date of Birth</th>
+                        <td>{{ profileUser.date_of_birth}}</td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td>{{ profileUser.gender}}</td>
+                    </tr>
+                    <tr>
+                        <th>Height</th>
+                        <td>{{ profileUser.height}}</td>
+                    </tr>
+                    <tr>
+                        <th>Weight</th>
+                        <td>{{ profileUser.weight}}</td>
+                    </tr>
+                    <tr>
+                        <th>Phone Number</th>
+                        <td>{{ profileUser.phone_number }}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{ profileUser.address}}, {{ profileUser.city}}</td>
+                    </tr>
+                    <tr>
+                        <th>Emergency Contact</th>
+                        <td>{{ profileUser.emergency_contact}}: {{ profileUser.emergency_number}}</td>
+                    </tr>
+                    <tr>
+                    </tr>
+                    <tr>
+                        <th>Doctor</th>
+                        <td>{{ profileUser.doctor.user.first_name}} {{ profileUser.doctor.user.last_name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Hospital</th>
+                        <td>{{ profileUser.hospital.name }}</td>
+                    </tr>
+                </table>
+
+            </p>
+
+
+
+        </div>
+         <div class="panel-footer">
+            <div class="row">
+                <div class="col-md-12">
+
+
+                            <form action="/userprofile/update" style="width:50%;float:left;">
+                                {% csrf_token %}
+                                <button class="btn btn-info" type="submit">
+                                    Update Profile
+                                </button>
+                            </form>
+
+                            <script>
+                                function exportConfirm() {
+                                    if (confirm('Are you sure you would like to export? ' +
+                                         'Exporting may be a privacy risk since your information will ' +
+                                          'no longer be within Healthnet\'s security.') == true) {
+                                        window.location.replace("/userprofile/export");
+                                    } else {
+                                        alert("Export has been cancelled");
+                                    }
+                                }
+                            </script>
+
+
+                                <button class="btn btn-success" style="display:inline; float:right" type="submit"
+                                        onclick="exportConfirm()"">
+                                    Export Information
+                                </button>
+
+
+                </div>
+            </div>
+        </div>
+
+
+{% endblock %}

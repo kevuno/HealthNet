@@ -1,0 +1,48 @@
+{% extends 'healthnet/employee/employee_dashboard.html' %}
+{% block content %}
+    <div class="row">
+        <div class="col-lg-8">
+
+            <!-- Display the logged in user's name at the top -->
+            <!--Display this title only if the user is a doctor, otherwise say, the hospital appointments or maybe sort by doctor-->
+            <div class="title_left">
+                <h3>{{ request.user.first_name }}'s Appointments</h3>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+            <div class="col-lg-8">
+            <!-- If there is an appointment list sent into the page-->
+            {% if appointment_list %}
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Next Appointments</h3>
+                    </div>
+
+                    <!-- Display the list of appointments-->
+                    <div class="panel-body">
+                        {% for appointment in appointment_list %}
+                            <a href="/employee/appointment/{{ appointment.id }}" class="list-group-item">
+                                <span class="text-info">
+                                    {{ appointment.description }}
+                                </span>
+
+                                with {{ appointment.patient_ID.user.first_name }} {{ appointment.patient_ID.user.last_name }}
+                                on {{ appointment.date }}
+                                <span class="badge"> {{ appointment.time }}</span>
+                            </a>
+                        {% endfor %}
+                        <ul>
+
+
+                        </ul>
+                    </div>
+                </div>
+                </div>
+
+            {% else %}
+                <p>No appointments available.</p>
+            {% endif %}
+    </div>
+{% endblock %}

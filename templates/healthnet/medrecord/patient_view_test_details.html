@@ -1,0 +1,27 @@
+{% extends 'healthnet/base.html' %}
+{% block content %}
+    <div class="col-lg-6 col-md-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="modal-title"> {{ request.user.first_name }}'s Test </h4>
+            </div>
+
+            <!-- Test Details -->
+            <div class="panel-body">
+                <p>
+                    Test Title: {{ test.title }}
+                    <br/>
+                    Date Uploaded: {{ test.date }}
+                    <br/>
+                    Test Description: {{ test.description }}
+                    <br/>
+                    Released to Patient: {{ test.released }}
+                    <br/>
+                    Comment: {{ test.comment }}
+                </p>
+
+            </div>
+
+
+
+{% endblock %}
